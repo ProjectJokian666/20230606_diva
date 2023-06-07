@@ -92,6 +92,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('a.event') }}" class="nav-link">
+                        <i class="nav-icon fas fa-city"></i>
+                        <p>
+                            Data Events
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('a.jadwal') }}" class="nav-link">
                         <i class="nav-icon fas fa-calendar"></i>
                         <p>
@@ -112,14 +120,6 @@
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Anggota
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('a.event') }}" class="nav-link">
-                        <i class="nav-icon fas fa-city"></i>
-                        <p>
-                            Events
                         </p>
                     </a>
                 </li>

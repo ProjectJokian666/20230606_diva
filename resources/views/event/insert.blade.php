@@ -52,6 +52,16 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="kode">Tanggal Event</label>
+                                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" placeholder="Ketik Nama Sesi"  value="{{ old('tanggal') }}">
+    
+                                @error('tanggal')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="kode">Nama Event</label>
                                 <input type="text" name="nama_event" class="form-control @error('nama_event') is-invalid @enderror" id="nama_event" placeholder="Ketik Nama Sesi"  value="{{ old('nama_event') }}">
     
@@ -63,33 +73,33 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Detail Event</label>
-                                <textarea name="detail_event" id="detail_event" cols="30" rows="3" class="form-control"></textarea>
+                                <textarea name="detail_event" id="detail_event" cols="30" rows="3" class="form-control @error('nama_event') is-invalid @enderror" placeholder="Deail Event"></textarea>
+
+                                @error('detail_event')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="kode">Start</label>
-                                        <input type="datetime-local" name="event_start" class="form-control @error('event_start') is-invalid @enderror" id="event_start"  value="{{ old('event_start') }}">
-            
-                                        @error('event_start')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                        @enderror
+                            <div class="form-group">
+                                <label for="kode">Diskon Event</label>
+                                <input type="number" name="diskon_event" class="form-control @error('diskon_event') is-invalid @enderror" id="diskon_event" placeholder="Diskon Event" min="0" max="100" value="{{ old('diskon_event') }}">
+    
+                                @error('diskon_event')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="finish">Finish</label>
-                                        <input type="datetime-local" name="event_finish" class="form-control @error('event_finish') is-invalid @enderror" id="event_finish"  value="{{ old('event_finish') }}">
-            
-                                        @error('event_finish')
-                                            <div class="invalid-feedback">
-                                                {{$message}}
-                                            </div>
-                                        @enderror
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="kode">Harga</label>
+                                <input type="number" name="harga_event" class="form-control @error('harga_event') is-invalid @enderror" id="harga_event" placeholder="Harga Event" value="{{ old('harga_event') }}">
+    
+                                @error('harga_event')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
                                     </div>
-                                </div>
+                                @enderror
                             </div>
                         </div>
                         <!-- /.card-body -->

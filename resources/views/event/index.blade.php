@@ -60,10 +60,11 @@
                                         <thead>
                                             <tr>
                                                 <th width="5%" style="text-align: center;">No</th>
+                                                <th>Tanggal</th>
                                                 <th>Nama Event</th>
                                                 <th>Detail</th>
-                                                <th>Start</th>
-                                                <th>Finish</th>
+                                                <th>Diskon</th>
+                                                <th>Harga</th>
                                                 @if(Auth::user()->role_id == 2)
                                                     <th width="10%">Aksi</th>
                                                 @endif
@@ -72,11 +73,12 @@
                                         <tbody>
                                             @foreach ($event as $data)
                                                 <tr>
-                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $data->tanggal }}</td>
                                                     <td>{{ $data->nama_event }}</td>
                                                     <td>{{ $data->detail_event }}</td>
-                                                    <td>{{ $data->event_start }}</td>
-                                                    <td>{{ $data->event_finish }}</td>
+                                                    <td>{{ $data->diskon_event.' %' }}</td>
+                                                    <td>{{ 'Rp '.number_format($data->harga_event,0,',','.') }}</td>
                                                     @if(Auth::user()->role_id == 2)
                                                         <td>
                                                             <a href="{{ route('a.event.edit', $data->id) }}"> <button class="btn btn-warning btn-sm"><i class="fa fa-pen"></i></button></a>

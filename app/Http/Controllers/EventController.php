@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Events;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,16 +25,19 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request);
         $validate = Validator::make($request->all(),[
-            'nama_event'      => 'required',
-            'detail_event'          => 'required',
-            'event_start'         => 'required',
-            'event_finish'         => 'required'
+            'tanggal' => 'required',
+            'nama_event'=> 'required',
+            'detail_event' => 'required',
+            'diskon_event' => 'required',
+            'harga_event' => 'required',
         ], [
-            'nama_event.required'     => 'Nama Harus Diisi!',
-            'detail_event.required'         => 'Email Harus Diisi!',
-            'event_start.required'        => 'Asal Kota Harus Diisi!',
-            'event_finish.required'        => 'Asal Kota Harus Diisi!'
+            'tanggal.required' => 'Tanggal Harus Diisi!',
+            'nama_event.required' => 'Nama Harus Diisi!',
+            'detail_event.required' => 'Detail Harus Diisi!',
+            'diskon_event.required' => 'Diskon Harus Diisi!',
+            'harga_event.required' => 'Harga Harus Diisi!',
         ]);
 
         if($validate->fails()){
@@ -42,12 +46,13 @@ class EventController extends Controller
         }
 
         Events::insert([
-            'nama_event'        => $request->nama_event,
-            'detail_event'      => $request->detail_event,
-            'event_start'       => $request->event_start,
-            'event_finish'      => $request->event_finish,
-            'created_at'        => Carbon::now(),
-            'updated_at'        => Carbon::now()
+            'tanggal' => $request->tanggal,
+            'nama_event' => $request->nama_event,
+            'detail_event' => $request->detail_event,
+            'diskon_event' => $request->diskon_event,
+            'harga_event' => $request->harga_event,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         Session::put('sweetalert', 'success');
@@ -63,15 +68,17 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         $validate = Validator::make($request->all(),[
-            'nama_event'      => 'required',
-            'detail_event'          => 'required',
-            'event_start'         => 'required',
-            'event_finish'         => 'required'
+            'tanggal' => 'required',
+            'nama_event'=> 'required',
+            'detail_event' => 'required',
+            'diskon_event' => 'required',
+            'harga_event' => 'required',
         ], [
-            'nama_event.required'     => 'Nama Harus Diisi!',
-            'detail_event.required'         => 'Email Harus Diisi!',
-            'event_start.required'        => 'Asal Kota Harus Diisi!',
-            'event_finish.required'        => 'Asal Kota Harus Diisi!'
+            'tanggal.required' => 'Tanggal Harus Diisi!',
+            'nama_event.required' => 'Nama Harus Diisi!',
+            'detail_event.required' => 'Detail Harus Diisi!',
+            'diskon_event.required' => 'Diskon Harus Diisi!',
+            'harga_event.required' => 'Harga Harus Diisi!',
         ]);
 
         if($validate->fails()){
@@ -80,10 +87,11 @@ class EventController extends Controller
         }
 
         Events::where('id', $id)->update([
-            'nama_event'        => $request->nama_event,
-            'detail_event'      => $request->detail_event,
-            'event_start'       => $request->event_start,
-            'event_finish'      => $request->event_finish,
+            'tanggal' => $request->tanggal,
+            'nama_event' => $request->nama_event,
+            'detail_event' => $request->detail_event,
+            'diskon_event' => $request->diskon_event,
+            'harga_event' => $request->harga_event,
             'updated_at'        => Carbon::now()
         ]);
 
@@ -96,6 +104,7 @@ class EventController extends Controller
         $event = Events::find($id);
         if($event){
             Events::where('id', $id)->delete();
+            DB::statement('ALTER TABLE events AUTO_INCREMENT=0');
         }   
     }
 }
