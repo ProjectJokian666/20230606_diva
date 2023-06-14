@@ -7,6 +7,7 @@ use App\Models\KelasSenam;
 use App\Models\Pelatih;
 use App\Models\PendaftaranKelas;
 use App\Models\JadwalSesi;
+use App\Models\Events;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -104,8 +105,9 @@ class HomeController extends Controller
                         'jumat' => $jumat,
                         'sabtu' => $sabtu,
                         'minggu' => $minggu,
+                        'events' => Events::all(),
                 ];
-
+                // dd($data);
                 return view('home.index', compact('data'));
         }
 }

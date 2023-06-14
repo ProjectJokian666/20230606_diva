@@ -51,6 +51,7 @@
                             <a href="#home" class="nav-item nav-link active">Home</a>
                             <a href="#tentangkami" class="nav-item nav-link">Tentang Kami</a>
                             <a href="#kelas" class="nav-item nav-link">Kelas</a>
+                            <a href="#event" class="nav-item nav-link">Event</a>
                             <a href="#pelatih" class="nav-item nav-link">Trainer Kami</a>
                         </div>
                         <a href="{{ route('login') }}" class="btn btn-primary py-md-3 px-md-5 d-none d-lg-block">Login</a>
