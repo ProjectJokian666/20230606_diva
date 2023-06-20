@@ -7,24 +7,20 @@
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="w-100" src="{{asset('landingpage/img/carousel-1.jpg')}}" alt="Image">
+                <img class="w-100" src="{{asset('Gambar_Senam/gam5.jpeg')}}" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
                         <h5 class="text-white text-uppercase">Best Gym Center</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">Build Your Body Strong With Sanggar Senam Atheena</h1>
-                        <a href="{{ route('login') }}" class="btn btn-primary py-md-3 px-md-5 me-3">Login</a>
-                        <a href="{{ route('register') }}" class="btn btn-light py-md-3 px-md-5">Register</a>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="w-100" src="{{asset('landingpage/img/carousel-2.jpg')}}" alt="Image">
+                <img class="w-100" src="{{asset('Gambar_Senam/gam7.jpeg')}}" alt="Image">
                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                     <div class="p-3" style="max-width: 900px;">
                         <h5 class="text-white text-uppercase">Best Gym Center</h5>
                         <h1 class="display-2 text-white text-uppercase mb-md-4">Grow Your Strength With Our Trainers</h1>
-                        <a href="{{ route('login') }}" class="btn btn-primary py-md-3 px-md-5 me-3">Login</a>
-                        <a href="{{ route('register') }}" class="btn btn-light py-md-3 px-md-5">Register</a>
                     </div>
                 </div>
             </div>
