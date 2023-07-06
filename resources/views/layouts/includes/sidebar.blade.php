@@ -87,7 +87,7 @@
                     <a href="{{ route('a.kelassenam') }}" class="nav-link">
                         <i class="nav-icon fas fa-landmark"></i>
                         <p>
-                            Data Kelas 
+                            Jenis Senam 
                         </p>
                     </a>
                 </li>
@@ -120,14 +120,6 @@
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Anggota
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('a.diskon') }}" class="nav-link">
-                        <i class="nav-icon fas fa-calendar"></i>
-                        <p>
-                            Diskon 
                         </p>
                     </a>
                 </li>
@@ -185,7 +177,7 @@
                     <a href="{{ route('m.kelassenam') }}" class="nav-link">
                         <i class="nav-icon fas fa-landmark"></i>
                         <p>
-                            Kelas Senam
+                            Jenis Senam
                         </p>
                     </a>
                 </li>

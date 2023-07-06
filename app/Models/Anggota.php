@@ -12,4 +12,9 @@ class Anggota extends Model
     protected $fillable = [
         'user_id', 'nama', 'alamat', 'tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'no_telp', 'status_anggota'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(user::class);
+    }
 }

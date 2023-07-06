@@ -21,123 +21,128 @@
   <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
 </head>
 <body class="hold-transition login-page">
-  
+
   @if(Session::has('alert'))
   @if(Session::get('sweetalert')=='success')
-      <div class="swalDefaultSuccess">
-      </div>
+  <div class="swalDefaultSuccess">
+  </div>
   @elseif(Session::get('sweetalert')=='error')
-      <div class="swalDefaultError">
-      </div>
+  <div class="swalDefaultError">
+  </div>
   @elseif(Session::get('sweetalert')=='warning')
-      <div class="swalDefaultWarning">
-      </div>
+  <div class="swalDefaultWarning">
+  </div>
   @endif
-@endif
-<div class="login-box">
-  <div class="login-logo">
-    <a href="{{ route('homepage') }}"><b>Sanggar Senam Atheena</b> Login Page</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Silahkan masuk untuk masuk aplikasi</p>
-
-      <form action="{{route('login')}}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember" name="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            {{-- <a href="{{route('dashboard')}}" type="submit" class="btn btn-primary btn-block">Sign In</a> --}}
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+  @endif
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{{ route('homepage') }}"><b>Sanggar Senam Atheena</b> Login Page</a>
     </div>
-    <!-- /.login-card-body -->
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Silahkan masuk untuk masuk aplikasi</p>
+
+        <form action="{{route('login')}}" method="post" enctype="multipart/form-data">
+          @csrf
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Email" name="email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">
+                  Remember Me
+                </label>
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              {{-- <a href="{{route('dashboard')}}" type="submit" class="btn btn-primary btn-block">Sign In</a> --}}
+              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </div>
+            <!-- /.col -->
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <a href="{{ route('register') }}" class="text-center">don't have a membership</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- /.login-card-body -->
+    </div>
   </div>
-</div>
-<!-- /.login-box -->
+  <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{asset('js/adminlte.min.js')}}"></script>
+  <!-- jQuery -->
+  <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{asset('js/adminlte.min.js')}}"></script>
 
-<!-- Sweet Alert -->
+  <!-- Sweet Alert -->
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-<!-- Toasr -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+  <!-- Toasr -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script type="text/javascript">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script type="text/javascript">
     $(function() {
-        const Toast = Swal.mixin({
+      const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 3000
-        });
+      });
 
-        $('.swalDefaultSuccess').show(function() {
+      $('.swalDefaultSuccess').show(function() {
         Toast.fire({
-            icon: 'success',
-            title: '{{Session::get('alert')}}'
+          icon: 'success',
+          title: '{{Session::get('alert')}}'
         })
-        });
-        $('.swalDefaultInfo').show(function() {
+      });
+      $('.swalDefaultInfo').show(function() {
         Toast.fire({
-            icon: 'info',
-            title: '{{Session::get('alert')}}'
+          icon: 'info',
+          title: '{{Session::get('alert')}}'
         })
-        });
-        $('.swalDefaultError').show(function() {
+      });
+      $('.swalDefaultError').show(function() {
         Toast.fire({
-            icon: 'error',
-            title: '{{Session::get('alert')}}'
+          icon: 'error',
+          title: '{{Session::get('alert')}}'
         })
-        });
-        $('.swalDefaultWarning').show(function() {
+      });
+      $('.swalDefaultWarning').show(function() {
         Toast.fire({
-            icon: 'warning',
-            title: '{{Session::get('alert')}}'
+          icon: 'warning',
+          title: '{{Session::get('alert')}}'
         })
-        });
-        $('.swalDefaultQuestion').show(function() {
+      });
+      $('.swalDefaultQuestion').show(function() {
         Toast.fire({
-            icon: 'question',
-            title: '{{Session::get('alert')}}'
+          icon: 'question',
+          title: '{{Session::get('alert')}}'
         })
-        });
+      });
     });
-</script>
+  </script>
 </body>
 </html>

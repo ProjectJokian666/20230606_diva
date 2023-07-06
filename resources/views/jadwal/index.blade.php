@@ -72,7 +72,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $value->senam->nama }}</td>
-                                            <td>{{ DATE('l, d M Y',strtotime($value->hari)) }}</td>
+                                            <td>{{ DATE('l, d M Y',strtotime($value->hari)) }}, {{DATE('H:i',strtotime($value->jam))}} WIB</td>
                                             <td>{{ $value->pelatih->nama }}</td>
                                             @if(Auth::user()->role_id == 2)
                                             <td>
@@ -143,13 +143,12 @@
                 title: "Anda Yakin?",
                 text: "Untuk menghapus data ini?",
                 icon: 'warning',
-                confirmButtonText: "Ya",
+                showCancelButton:true,
+                confirmButtonText: "Oke",
                 cancelButtonText: "Tidak",
-                buttons: true,
-                dangerMode: true
             })
             .then((willDelete) => {
-                if(willDelete) {
+                if(willDelete.isConfirmed) {
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -170,8 +169,6 @@
                             new swal("GAGAL!", "Gagal Menghapus Data!", "error");
                         }
                     });
-                }else{
-                    new swal("Data Alasan Batal Dihapus", "", "info")
                 }
             })
         }

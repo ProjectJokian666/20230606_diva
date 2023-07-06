@@ -89,6 +89,16 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="jam">Jam</label>
+                                    <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam" placeholder="Ketik Nama Sesi"  value="{{ old('jam') }}">
+
+                                    @error('jam')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
                             <!-- /.card-body -->
 

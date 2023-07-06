@@ -63,6 +63,16 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="jam">Jam Event</label>
+                                <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam" placeholder="Ketik Nama Sesi"  value="{{ $event->jam }}">
+    
+                                @error('jam')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="kode">Nama Event</label>
                                 <input type="text" name="nama_event" class="form-control @error('nama_event') is-invalid @enderror" id="nama_event" placeholder="Ketik Nama Sesi"  value="{{ $event->nama_event }}">
     

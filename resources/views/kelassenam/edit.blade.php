@@ -20,12 +20,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit Kelas Senam</h1>
+                    <h1 class="m-0">Edit Jenis Senam</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-                        <li class="breadcrumb-item">Kelas Senam</li>
+                        <li class="breadcrumb-item">Jenis Senam</li>
                         <li class="breadcrumb-item active">Edit Data</li>
                     </ol>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="col-md-12">
                     <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Edit Kelas Senam</h3>
+                        <h3 class="card-title">Edit Jenis Senam</h3>
                         <div class="card-tools">
                             @if (Auth::user()->role_id == 2)
                                 <a href="{{ route('a.kelassenam') }}" class="btn btn-warning btn-sm">Kembali</a>
@@ -53,7 +53,7 @@
                         @method('put')
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="kode">Nama Kelas</label>
+                                <label for="kode">Nama Senam</label>
                                 <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Ketik Nama"  value="{{ (old('nama')) ? old('nama') : $kelassenam->nama  }}">
     
                                 @error('nama')

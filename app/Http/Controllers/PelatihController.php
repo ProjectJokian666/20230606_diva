@@ -41,6 +41,7 @@ class PelatihController extends Controller
             'jenis_kelamin'     => 'required',
             'jenis_pelatih'     => 'required',
             'status_kepelatihan'=> 'required',
+            'foto_pelatih'=> 'required',
         ], [
             'nama.required'             => 'Nama Harus Diisi!',
             'email.required'            => 'Email Harus Diisi!',
@@ -53,6 +54,7 @@ class PelatihController extends Controller
             'jenis_kelamin.required'        => 'Jenis Kelamin Harus Diisi!',
             'jenis_pelatih.required'        => 'Jenis Pelatih Harus Diisi!',
             'status_kepelatihan.required'        => 'Asal Kota Harus Diisi!',
+            'foto_pelatih.required'        => 'Foto Harus Diisi!',
         ]);
 
         if($validate->fails()){
@@ -62,12 +64,18 @@ class PelatihController extends Controller
 
         $namaPelatih = preg_split("/[\s,]+/", $request->nama);
 
+        // dd($request->file('foto_pelatih'));
+        $foto = $request->file('foto_pelatih');
+        $foto_name = time().'.'.$foto->getClientOriginalExtension();
+        $foto->move('foto_pelatih',$foto_name);
+
         $user = new User();
         $user->role_id      = 3;
         $user->name         = $request->nama;
         $user->email        = $request->email;
         $user->username     = $namaPelatih[0];
         $user->password     = bcrypt('pelatih');
+        $user->image        = $foto_name;
         $user->created_at   = Carbon::now();
         $user->updated_at   = Carbon::now();
         $user->save();
@@ -82,7 +90,7 @@ class PelatihController extends Controller
             'jenis_kelamin'     => $request->jenis_kelamin,
             'no_telp'           => $request->no_telp,
             'jenis_pelatih'     => $request->jenis_pelatih,
-            'status_kepelatihan'    => $request->status_kepelatihan,
+            'status_kepelatihan'=> $request->status_kepelatihan,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);

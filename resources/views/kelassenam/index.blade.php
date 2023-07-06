@@ -21,12 +21,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Data Kelas</h1>
+                        <h1 class="m-0">Jenis Senam</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Data Kelas</li>
+                            <li class="breadcrumb-item active">Jenis Senam</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -43,7 +43,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Data Kelas</h5>
+                                <h5 class="card-title">Jenis Senam</h5>
                                 @if(Auth::user()->role_id == 2)
                                     <div class="card-tools">
                                         <a href="{{ route('a.kelassenam.add') }}" class="btn btn-success btn-sm">
@@ -62,7 +62,7 @@
                                                 <th width="5%" style="text-align: center;">No</th>
                                                 <th>Nama Kelas</th>
                                                 <th>Diskon</th>
-                                                <th>Harga</th>
+                                                <th>Harga per Sesi</th>
                                                 @if(Auth::user()->role_id == 2)
                                                     <th width="10%">Aksi</th>
                                                 @endif
@@ -144,13 +144,12 @@
             title: "Anda Yakin?",
             text: "Untuk menghapus data ini?",
             icon: 'warning',
-            confirmButtonText: "Ya",
+            showCancelButton:true,
+            confirmButtonText: "Oke",
             cancelButtonText: "Tidak",
-            buttons: true,
-            dangerMode: true
         })
         .then((willDelete) => {
-            if(willDelete) {
+            if(willDelete.isConfirmed) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -169,8 +168,6 @@
                             new swal("GAGAL!", "Gagal Menghapus Data!", "error");
                         }
                     });
-            }else{
-                new swal("Data Alasan Batal Dihapus", "", "info")
             }
         })
     }

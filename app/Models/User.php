@@ -86,5 +86,9 @@ class User extends Authenticatable
         }
         return false;
     }
+    public function anggota()
+    {
+        return $this->hasOne(Anggota::class,'user_id','id');
+    }
     // Check Role
 }

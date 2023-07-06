@@ -11,29 +11,89 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+use App\Models\Ikutkelas;
+use App\Models\JadwalSesi;
+
 class DaftarKelasSenamController extends Controller
 {
     public function index()
     {
-        $kelassenam = DB::select("
-            SELECT ks.*, concat(js.start, ' - ', js.finish) as sesi, p.nama as nama_pelatih
-            FROM kelas_senams ks, jadwal_sesies js, pelatihs p
-            WHERE ks.jadwal_sesi_id = js.id
-                AND ks.pelatih_id = p.id
-        ");
-        $no = 1;
-        return view('daftarkelas.index', compact(['kelassenam', 'no']));
+        $data = [
+            // 'kelas_diikuti' => Ikutkelas::leftjoin('anggotais','ikut_kelas.jadwal_id','anggotais.id')->where('anggotais.user_id','=',Auth()->user()->id)->get(),
+            'jadwal_kelas' => JadwalSesi::where(DB::RAW("concat(hari,' ',jam)"),">=",DB::RAW("concat(curdate(),' ',curtime())"))->get(),
+        ];
+        // dd($data,Auth()->user()->id);
+        return view('daftarkelas.index', compact('data'));
     }
 
-    public function insert($id)
+    public function get_tambah_jadwal_user()
     {
-        $kelasSenam = KelasSenam::join('jadwal_sesies', 'jadwal_sesies.id', '=', 'kelas_senams.jadwal_sesi_id')
-                    ->join('pelatihs', 'pelatihs.id', '=', 'kelas_senams.pelatih_id')
-                    ->join('users', 'users.id', '=', 'pelatihs.user_id')
-                    ->where('kelas_senams.id', $id)
-                    ->select('pelatihs.*', 'kelas_senams.*', 'kelas_senams.id as id_kelas_senam', 'kelas_senams.nama as nama_kelas', 'jadwal_sesies.*')
-                    ->first();
-        return view('daftarkelas.insert', compact(['kelasSenam']));
+        return redirect()->route('m.daftarKelas');
+    }
+
+    public function tambah_jadwal_user($jadwal,Request $request)
+    {
+        $cek_data = Ikutkelas::where('jadwal_id','=',$jadwal)->where('user_id','=',Auth()->user()->anggota->id)->first();
+        // dd($id,$request,Auth()->user()->anggota->id);
+        if($cek_data){
+            // dd('ada');
+            Session::put('sweetalert', 'danger');
+            return redirect()->route('m.daftarKelas')->with('alert', 'Data Sudah Ada');
+        }
+        else{
+            // dd('tidak');
+            $insert_data = Ikutkelas::insert([
+                'jadwal_id'=>$jadwal,
+                'user_id'=>Auth()->user()->anggota->id,
+            ]);
+            if ($insert_data) {
+                Session::put('sweetalert', 'success');
+                return redirect()->route('m.daftarKelas')->with('alert', 'Sukses Menambahkan Data');
+            }
+            else{
+                Session::put('sweetalert', 'danger');
+                return redirect()->route('m.daftarKelas')->with('alert', 'Gagal Menambahkan Data');
+            }
+        }
+    }
+
+    public function delete_jadwal_user($jadwal,Request $request)
+    {
+        $cek_data = Ikutkelas::where('jadwal_id','=',$jadwal)->where('user_id','=',Auth()->user()->anggota->id)->first();
+        // dd($id,$request,Auth()->user()->anggota->id);
+        if($cek_data){
+            // dd('ada');
+            $delete_data = Ikutkelas::where('jadwal_id','=',$jadwal)->where('user_id','=',Auth()->user()->anggota->id)->delete();
+            if ($delete_data) {
+                DB::statement('ALTER TABLE ikut_kelas AUTO_INCREMENT=0');
+                Session::put('sweetalert', 'success');
+                return redirect()->route('m.daftarKelas')->with('alert', 'Sukses menghapus Data');
+            }
+            else{
+                Session::put('sweetalert', 'danger');
+                return redirect()->route('m.daftarKelas')->with('alert', 'Gagal menghapus Data');
+            }
+        }
+        else{
+            // dd('tidak');
+            Session::put('sweetalert', 'danger');
+            return redirect()->route('m.daftarKelas')->with('alert', 'Data Tidak Ada');
+        }
+    }
+
+    public function store_jadwal_user(Request $request,$id)
+    {
+        // dd($request);
+
+
+    }
+
+    public function insert()
+    {
+        $data = [
+            'jadwal_kelas' => JadwalSesi::all(),
+        ];
+        return view('daftarkelas.insert', compact('data'));
     }
 
     public function store(Request $request)

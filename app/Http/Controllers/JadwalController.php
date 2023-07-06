@@ -38,11 +38,13 @@ class JadwalController extends Controller
         $validate = Validator::make($request->all(),[
             'senam'     => 'required',
             'pelatih'   => 'required',
-            'tanggal'   => 'required'
+            'tanggal'   => 'required',
+            'jam'   => 'required',
         ], [
             'senam.required'    => 'Kelas Harus Diisi!',
             'pelatih.required'  => 'Pelatih Harus Diisi!',
-            'tanggal.required'  => 'Tanggal Harus Diisi!'
+            'tanggal.required'  => 'Tanggal Harus Diisi!',
+            'jam.required'  => 'Jam Harus Diisi!',
         ]);
 
         if($validate->fails()){
@@ -55,12 +57,14 @@ class JadwalController extends Controller
         where('hari','=',$request->tanggal)->first();
         if ($cek_data) {
             Session::put('sweetalert', 'warning');
-            return redirect()->back()->with('alert', 'Pelatih sudah ada jadwal dihari '.DATE('l, d M Y',strtotime($request->tanggal)))->withErrors($validate);
+            return redirect()->back()->with('alert', 'Pelatih sudah ada jadwal dihari '.DATE('l, d M Y',strtotime($request->tanggal)).', '.DATE('H:i',strtotime($cek_data->jam)).' WIB')->withErrors($validate);
         }
         $cek_data = JadwalSesi::
         where('senam_id','=',$request->senam)->
         where('user_id','=',$request->pelatih)->
-        where('hari','=',$request->tanggal)->first();
+        where('hari','=',$request->tanggal)->
+        where('jam','=',$request->jam)->
+        first();
         if ($cek_data) {
             Session::put('sweetalert', 'warning');
             return redirect()->back()->with('alert', 'Data sudah ada')->withErrors($validate);
@@ -70,13 +74,14 @@ class JadwalController extends Controller
         where('hari','=',$request->tanggal)->first();
         if ($cek_data_hari) {
             Session::put('sweetalert', 'warning');
-            return redirect()->back()->with('alert', 'Pelatih sudah ada jadwal untuk hari ini')->withErrors($validate);
+            return redirect()->back()->with('alert', 'Pelatih sudah ada jadwal untuk hari ini pada jam '.DATE('H:i',strtotime($cek_data_hari->jam)).' WIB')->withErrors($validate);
         }
 
         JadwalSesi::insert([
             'senam_id'      => $request->senam,
             'user_id'       => $request->pelatih,
             'hari'          => $request->tanggal,
+            'jam'          => $request->jam,
             'created_at'    => Carbon::now(),
             'updated_at'    => Carbon::now()
         ]);
@@ -102,11 +107,13 @@ class JadwalController extends Controller
         $validate = Validator::make($request->all(),[
             'senam'     => 'required',
             'pelatih'   => 'required',
-            'tanggal'   => 'required'
+            'tanggal'   => 'required',
+            'jam'   => 'required',
         ], [
             'senam.required'    => 'Kelas Harus Diisi!',
             'pelatih.required'  => 'Pelatih Harus Diisi!',
-            'tanggal.required'  => 'Tanggal Harus Diisi!'
+            'tanggal.required'  => 'Tanggal Harus Diisi!',
+            'jam.required'  => 'Jam Harus Diisi!',
         ]);
 
         if($validate->fails()){
@@ -120,6 +127,7 @@ class JadwalController extends Controller
         where('senam_id','=',$request->senam)->
         where('user_id','=',$request->pelatih)->
         where('hari','=',$request->tanggal)->
+        where('jam','=',$request->jam)->
         first();
         if ($data_exist) {
             // jika data sama update sama dengan data yang mau diubah
@@ -129,6 +137,8 @@ class JadwalController extends Controller
                 $data_awal->user_id==$data_exist->user_id
                 &&
                 $data_awal->hari==$data_exist->hari
+                &&
+                $data_awal->jam==$data_exist->jam
             ) {
                 Session::put('sweetalert', 'warning');
                 return redirect()->back()->with('alert', 'Data tidak berubah');
@@ -141,7 +151,7 @@ class JadwalController extends Controller
         where('hari','=',$request->tanggal)->first();
         if ($cek_data_hari&&$cek_data_hari->user_id!=$data_awal->user_id) {
             Session::put('sweetalert', 'warning');
-            return redirect()->back()->with('alert', $cek_data_hari->pelatih->nama.' sudah ada jadwal '.$cek_data_hari->senam->nama.' pada hari tersebut')->withErrors($validate);
+            return redirect()->back()->with('alert', $cek_data_hari->pelatih->nama.' sudah ada jadwal '.$cek_data_hari->senam->nama.' pada hari tersebut dan dijam '.DATE('H:i',strtotime($cek_data_hari->jam)).' WIB')->withErrors($validate);
         }
 
         // dd($data_awal,$data_exist);
@@ -151,6 +161,7 @@ class JadwalController extends Controller
             'senam_id'      => $request->senam,
             'user_id'       => $request->pelatih,
             'hari'          => $request->tanggal,
+            'jam'          => $request->jam,
             'updated_at'    => Carbon::now()
         ]);
 

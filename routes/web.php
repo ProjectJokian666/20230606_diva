@@ -30,6 +30,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
+Route::get('pelatih/{id}',[HomeController::class,'pelatih'])->name('pelatih');
+
+Route::group(['prefix' => 'event'], function(){
+    Route::get('{id}',[HomeController::class,'event'])->name('event');
+    Route::post('{id}',[HomeController::class,'event_daftar'])->name('event_daftar');
+});
+
+Route::group(['prefix' => 'kelas'], function(){
+    Route::get('{id}',[HomeController::class,'kelas'])->name('kelas');
+    
+});
+
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('register', [RegisterController::class, 'store'])->name('registerPost');
 
@@ -137,79 +149,85 @@ Route::group(['middleware' => ['web', 'auth', 'roles']], function(){
         });
     });
 
-    Route::group(['roles' => 'Pelatih', 'prefix' => 'Pelatih'], function(){
+Route::group(['roles' => 'Pelatih', 'prefix' => 'Pelatih'], function(){
         // Module Anggota
-        Route::group(['prefix' => 'Anggota'], function(){
-            Route::get('', [AnggotaController::class, 'index'])->name('p.anggota');
-        });
+    Route::group(['prefix' => 'Anggota'], function(){
+        Route::get('', [AnggotaController::class, 'index'])->name('p.anggota');
+    });
 
         // Module Event
-        Route::group(['prefix' => 'Event'], function(){
-            Route::get('', [EventController::class, 'index'])->name('p.event');
-        });
+    Route::group(['prefix' => 'Event'], function(){
+        Route::get('', [EventController::class, 'index'])->name('p.event');
+    });
 
         // Module Pemasukkan
-        Route::group(['prefix' => 'Pemasukkan'], function(){
-            Route::get('', [PemasukkanController::class, 'index'])->name('p.pemasukkan');
-        });
+    Route::group(['prefix' => 'Pemasukkan'], function(){
+        Route::get('', [PemasukkanController::class, 'index'])->name('p.pemasukkan');
+    });
+});
+
+Route::group(['roles' => 'Member', 'prefix' => 'Member'], function(){
+        // Module Kelas Senam
+    Route::group(['prefix' => 'Kelas-Senam'], function(){
+        Route::get('', [KelasSenamController::class, 'index'])->name('m.kelassenam');
     });
 
-    Route::group(['roles' => 'Member', 'prefix' => 'Member'], function(){
-        // Module Kelas Senam
-        Route::group(['prefix' => 'Kelas-Senam'], function(){
-            Route::get('', [KelasSenamController::class, 'index'])->name('m.kelassenam');
-        });
-
         // Module Pelatih
-        Route::group(['prefix' => 'Pelatih'], function(){
-            Route::get('', [PelatihController::class, 'index'])->name('m.pelatih');
-        });
+    Route::group(['prefix' => 'Pelatih'], function(){
+        Route::get('', [PelatihController::class, 'index'])->name('m.pelatih');
+    });
 
         // Module Event
-        Route::group(['prefix' => 'Event'], function(){
-            Route::get('', [EventController::class, 'index'])->name('m.event');
-        });
+    Route::group(['prefix' => 'Event'], function(){
+        Route::get('', [EventController::class, 'index'])->name('m.event');
+        Route::post('{jadwal}/tambah', [EventController::class, 'tambah_event'])->name('m.add_event');
+        Route::delete('{jadwal}/batal', [EventController::class, 'delete_event'])->name('m.delete_event');
+    });
 
         // Module Anggota
-        Route::group(['prefix' => 'Daftar-Kelas-Senam'], function(){
-            Route::get('', [DaftarKelasSenamController::class, 'index'])->name('m.daftarKelas');
-            Route::get('tambah-data/{id}', [DaftarKelasSenamController::class, 'insert'])->name('m.daftarKelas.add');
-            Route::post('simpan-data', [DaftarKelasSenamController::class, 'store'])->name('m.daftarKelas.store');
-            Route::get('{uuid}', [DaftarKelasSenamController::class, 'edit'])->name('m.daftarKelas.edit');
+    Route::group(['prefix' => 'Daftar-Kelas-Senam'], function(){
+        Route::get('', [DaftarKelasSenamController::class, 'index'])->name('m.daftarKelas');
+        Route::get('{jadwal}/tambah', [DaftarKelasSenamController::class, 'get_tambah_jadwal_user'])->name('m.get_jadwal_id_user');
+        Route::post('{jadwal}/tambah', [DaftarKelasSenamController::class, 'tambah_jadwal_user'])->name('m.add_jadwal_id_user');
+        Route::delete('{jadwal}/batal', [DaftarKelasSenamController::class, 'delete_jadwal_user'])->name('m.delete_jadwal_id_user');
+        Route::patch('{jadwal}/tambah', [DaftarKelasSenamController::class, 'store_jadwal_user'])->name('m.store_jadwal_id_user');
+        Route::get('tambah-data', [DaftarKelasSenamController::class, 'insert'])->name('m.daftarKelas.add');
+        Route::post('simpan-data', [DaftarKelasSenamController::class, 'store'])->name('m.daftarKelas.store');
+        Route::get('{uuid}', [DaftarKelasSenamController::class, 'edit'])->name('m.daftarKelas.edit');
             // batalkan
-            Route::delete('delete/{uuid}', [DaftarKelasSenamController::class, 'destroy'])->name('m.daftarKelas.delete');
-        });
-
-        // Module Pembayaran
-        Route::group(['prefix' => 'Pembayaran'], function(){
-            Route::get('', [PembayaranController::class, 'index'])->name('m.pembayaran');
-        });
+        Route::delete('delete/{uuid}', [DaftarKelasSenamController::class, 'destroy'])->name('m.daftarKelas.delete');
     });
 
-    Route::group(['roles' => 'Non-Member', 'prefix' => 'Non-Member'], function(){
+        // Module Pembayaran
+    Route::group(['prefix' => 'Pembayaran'], function(){
+        Route::get('', [PembayaranController::class, 'index'])->name('m.pembayaran');
+    });
+});
+
+Route::group(['roles' => 'Non-Member', 'prefix' => 'Non-Member'], function(){
         // Module Kelas Senam
-        Route::group(['prefix' => 'Kelas-Senam'], function(){
-            Route::get('', [KelasSenamController::class, 'index'])->name('nm.kelassenam');
-        });
+    Route::group(['prefix' => 'Kelas-Senam'], function(){
+        Route::get('', [KelasSenamController::class, 'index'])->name('nm.kelassenam');
+    });
 
         // Module Pelatih
-        Route::group(['prefix' => 'Pelatih'], function(){
-            Route::get('', [PelatihController::class, 'index'])->name('nm.pelatih');
-        });
+    Route::group(['prefix' => 'Pelatih'], function(){
+        Route::get('', [PelatihController::class, 'index'])->name('nm.pelatih');
+    });
 
         // Module Daftar Kelas
-        Route::group(['prefix' => 'Daftar-Kelas-Senam'], function(){
-            Route::get('', [DaftarKelasSenamController::class, 'index'])->name('nm.daftarKelas');
-            Route::get('tambah-data/{id}', [DaftarKelasSenamController::class, 'insert'])->name('nm.daftarKelas.add');
-            Route::post('simpan-data', [DaftarKelasSenamController::class, 'store'])->name('nm.daftarKelas.store');
-            Route::get('{uuid}', [DaftarKelasSenamController::class, 'edit'])->name('nm.daftarKelas.edit');
+    Route::group(['prefix' => 'Daftar-Kelas-Senam'], function(){
+        Route::get('', [DaftarKelasSenamController::class, 'index'])->name('nm.daftarKelas');
+        Route::get('tambah-data/{id}', [DaftarKelasSenamController::class, 'insert'])->name('nm.daftarKelas.add');
+        Route::post('simpan-data', [DaftarKelasSenamController::class, 'store'])->name('nm.daftarKelas.store');
+        Route::get('{uuid}', [DaftarKelasSenamController::class, 'edit'])->name('nm.daftarKelas.edit');
             // batalkan
-            Route::delete('delete/{uuid}', [DaftarKelasSenamController::class, 'destroy'])->name('nm.daftarKelas.delete');
-        });
+        Route::delete('delete/{uuid}', [DaftarKelasSenamController::class, 'destroy'])->name('nm.daftarKelas.delete');
+    });
 
         // Module Pembayaran
-        Route::group(['prefix' => 'Pembayaran'], function(){
-            Route::get('', [PembayaranController::class, 'index'])->name('nm.pembayaran');
-        });
+    Route::group(['prefix' => 'Pembayaran'], function(){
+        Route::get('', [PembayaranController::class, 'index'])->name('nm.pembayaran');
     });
+});
 });

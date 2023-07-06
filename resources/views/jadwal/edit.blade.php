@@ -90,6 +90,16 @@
                                     </div>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="jam">Jam</label>
+                                    <input type="time" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam" placeholder="Ketik Nama Sesi"  value="{{ $data['jadwal']->jam }}">
+
+                                    @error('jam')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary w-100">Submit</button>

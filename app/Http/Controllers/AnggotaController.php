@@ -16,12 +16,12 @@ class AnggotaController extends Controller
     {
         if(Auth::user()->role_id == 3){
             $anggota = Anggota::join('pendaftaran_kelases', 'pendaftaran_kelases.user_id', '=', 'anggotais.user_id')
-                        ->join('kelas_senams', 'kelas_senams.id', '=', 'pendaftaran_kelases.kelas_senam_id')
-                        ->join('jadwal_sesies', 'jadwal_sesies.id', '=', 'kelas_senams.jadwal_sesi_id')
-                        ->select('anggotais.*', 'kelas_senams.nama as nama_kelas', 'jadwal_sesies.start', 'jadwal_sesies.finish', 'pendaftaran_kelases.paket_mulai', 'pendaftaran_kelases.paket_selesai')
-                        ->where('status_pembayaran', 1)
-                        ->orderBy('pendaftaran_kelases.created_at', 'DESC')
-                        ->get();
+            ->join('kelas_senams', 'kelas_senams.id', '=', 'pendaftaran_kelases.kelas_senam_id')
+            ->join('jadwal_sesies', 'jadwal_sesies.id', '=', 'kelas_senams.jadwal_sesi_id')
+            ->select('anggotais.*', 'kelas_senams.nama as nama_kelas', 'jadwal_sesies.start', 'jadwal_sesies.finish', 'pendaftaran_kelases.paket_mulai', 'pendaftaran_kelases.paket_selesai')
+            ->where('status_pembayaran', 1)
+            ->orderBy('pendaftaran_kelases.created_at', 'DESC')
+            ->get();
         }else{
             $anggota = Anggota::all();
         }
@@ -160,7 +160,7 @@ class AnggotaController extends Controller
         if($anggota){
             Anggota::where('id', $id)->delete();
             User::where('id', $anggota->user_id)->delete();
-            
+
             return response()->json([
                 'status'    => 200
             ]);

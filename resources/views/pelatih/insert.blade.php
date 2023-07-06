@@ -165,6 +165,16 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label for="foto_pelatih">Foto</label>
+                                <input type="file" name="foto_pelatih" id="foto_pelatih" class="form-control @error('foto_pelatih') is-invalid @enderror" placeholder="Masukkan Foto Pelatih" value="{{ old('foto_pelatih') }}">
+    
+                                @error('foto_pelatih')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                            </div>
                         </div>
                         <!-- /.card-body -->
     
