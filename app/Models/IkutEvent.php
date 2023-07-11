@@ -18,4 +18,8 @@ class IkutEvent extends Model
         'status',
         'payment',
     ];
+    public function event()
+    {
+        return $this->hasOne(Events::class,'id','event_id');
+    }
 }

@@ -97,8 +97,8 @@
             </div>
         </div>
         <div class="col-lg-12 col-md-6 text-center">
-            <h1 class="text-uppercase text-light mb-4">Nikmati Berbagai Diskon Untuk Member</h1>
-            <a href="{{route('register')}}" class="btn btn-primary py-3 px-5">Daftar Member</a>
+            <h1 class="text-uppercase text-light mb-4">Nikmati Berbagai Diskon Untuk Anggota</h1>
+            <a href="{{route('register')}}" class="btn btn-primary py-3 px-5">Daftar Anggota</a>
         </div>
     </div>
 </div>

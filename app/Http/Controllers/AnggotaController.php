@@ -51,14 +51,14 @@ class AnggotaController extends Controller
             'jenis_kelamin'     => 'required',
             'status_anggota'    => 'required',
         ], [
-            'nama.required'             => 'Nama Harus Diisi!',
-            'email.required'            => 'Email Harus Diisi!',
-            'alamat.required'           => 'Alamat Harus Diisi!',
-            'tempat_lahir.required'     => 'Tempat Lahir Harus Diisi!',
-            'tgl_lahir.required'        => 'Tanggal Lahir Harus Diisi!',
-            'no_telp.required'          => 'Nomor Telepon Harus Diisi!',
-            'jenis_kelamin.required'        => 'Jenis Kelamin Harus Diisi!',
-            'status_anggota.required'        => 'Status Anggota Harus Diisi!',
+            'nama.required'=>'Nama Harus Diisi!',
+            'email.required'=>'Email Harus Diisi!',
+            'alamat.required'=>'Alamat Harus Diisi!',
+            'tempat_lahir.required'=>'Tempat Lahir Harus Diisi!',
+            'tgl_lahir.required'=>'Tanggal Lahir Harus Diisi!',
+            'no_telp.required'=>'Nomor Telepon Harus Diisi!',
+            'jenis_kelamin.required'=>'Jenis Kelamin Harus Diisi!',
+            'status_anggota.required'=>'Status Anggota Harus Diisi!',
         ]);
 
         if($validate->fails()){

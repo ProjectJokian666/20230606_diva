@@ -23,6 +23,10 @@ class JadwalSesi extends Model
         // dd($this->hasOne(Pelatih::class,'id','users_id'));
         return $this->hasOne(Pelatih::class,'id','user_id');
     }
+    public function ikutkelas()
+    {
+        return $this->belongsTo(IkutKelas::class);
+    }
     public function cek_kelas($jadwal,$id)
     {
         if (IkutKelas::where('jadwal_id',$jadwal)->where('user_id',$id)->first()) {

@@ -14,6 +14,11 @@ class Events extends Model
         'tanggal','nama_event', 'detail_event', 'diskon_event', 'harga_event'
     ];
 
+    public function ikutevent()
+    {
+        return $this->belongsTo(IkutEvent::class);
+    }
+
     public function audience($id)
     {
         $jumlah=0;
@@ -32,4 +37,5 @@ class Events extends Model
         }
         return false;
     }
+
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PemasukkanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +37,10 @@ Route::get('pelatih/{id}',[HomeController::class,'pelatih'])->name('pelatih');
 Route::group(['prefix' => 'event'], function(){
     Route::get('{id}',[HomeController::class,'event'])->name('event');
     Route::post('{id}',[HomeController::class,'event_daftar'])->name('event_daftar');
+
 });
+
+Route::get('cek_nomor',[HomeController::class,'cek_nomor'])->name('cek_nomor');
 
 Route::group(['prefix' => 'kelas'], function(){
     Route::get('{id}',[HomeController::class,'kelas'])->name('kelas');
@@ -49,7 +54,7 @@ Route::get('login', [LoginController::class, 'index'])->name('loginpage');
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/payment/process', 'PaymentController@process')->name('payment.process');
+// Route::get('/payment/process', 'PaymentController@process')->name('payment.process');
 
 Route::group(['middleware' => ['web', 'auth', 'roles']], function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -201,6 +206,11 @@ Route::group(['roles' => 'Member', 'prefix' => 'Member'], function(){
         // Module Pembayaran
     Route::group(['prefix' => 'Pembayaran'], function(){
         Route::get('', [PembayaranController::class, 'index'])->name('m.pembayaran');
+    });
+
+    Route::group(['prefix' => 'History'], function(){
+        Route::get('kelas', [HistoryController::class, 'kelas'])->name('m.kelas_history');
+        Route::get('event', [HistoryController::class, 'event'])->name('m.event_history');
     });
 });
 

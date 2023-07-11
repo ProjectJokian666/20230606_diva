@@ -18,4 +18,8 @@ class IkutKelas extends Model
         'status',
         'payment',
     ];
+    public function jadwal()
+    {
+        return $this->hasOne(JadwalSesi::class,'id','jadwal_id');
+    }
 }

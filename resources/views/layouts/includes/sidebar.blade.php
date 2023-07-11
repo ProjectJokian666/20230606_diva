@@ -213,6 +213,22 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('m.event_history') }}" class="nav-link">
+                        <i class="nav-icon fas fa-city"></i>
+                        <p>
+                            History Event
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('m.kelas_history') }}" class="nav-link">
+                        <i class="nav-icon fas fa-city"></i>
+                        <p>
+                            History Kelas
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         @elseif(Auth::user()->role_id == 5)
