@@ -22,18 +22,21 @@
 </head>
 <body class="hold-transition login-page">
 
-  @if(Session::has('alert'))
+  <!-- @if(Session::has('alert'))
   @if(Session::get('sweetalert')=='success')
   <div class="swalDefaultSuccess">
   </div>
   @elseif(Session::get('sweetalert')=='error')
+  <script>
+    Swal.fire('Status Login', '{{Session::get('alert')}}', 'error');
+  </script>
   <div class="swalDefaultError">
   </div>
   @elseif(Session::get('sweetalert')=='warning')
   <div class="swalDefaultWarning">
   </div>
   @endif
-  @endif
+  @endif -->
   <div class="login-box">
     <div class="login-logo">
       <a href="{{ route('homepage') }}"><b>Sanggar Senam Atheena</b> Login Page</a>
@@ -112,7 +115,9 @@
         timer: 3000
       });
 
+
       $('.swalDefaultSuccess').show(function() {
+        Swal.fire('Hello, Swal!', 'This is a basic alert dialog.', 'info');
         Toast.fire({
           icon: 'success',
           title: '{{Session::get('alert')}}'
@@ -125,10 +130,12 @@
         })
       });
       $('.swalDefaultError').show(function() {
-        Toast.fire({
-          icon: 'error',
-          title: '{{Session::get('alert')}}'
-        })
+        // Swal.fire('Status Login', '{{Session::get('alert')}}', 'error');
+
+        // Toast.fire({
+        //   icon: 'error',
+        //   title: '{{Session::get('alert')}}'
+        // })
       });
       $('.swalDefaultWarning').show(function() {
         Toast.fire({
@@ -144,5 +151,10 @@
       });
     });
   </script>
+  @if(Session::has('alert'))
+  <script>
+    Swal.fire('Status Login', '{{Session::get('alert')}}', 'error');
+  </script>
+  @endif
 </body>
 </html>

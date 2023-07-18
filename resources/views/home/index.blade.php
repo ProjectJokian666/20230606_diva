@@ -69,7 +69,7 @@
                 <i class="flaticon-six-pack display-1 text-primary"></i>
                 <h3 class="text-uppercase my-4">Aerobic Pemula</h3>
                 <p>Aerobik pemula adalah bentuk latihan aerobik yang dirancang khusus untuk pemula yang baru memulai atau memiliki tingkat kebugaran yang lebih rendah. </p>
-                <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                <!-- <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a> -->
             </div>
         </div>
         <div class="col-lg-4 col-md-6">
@@ -77,7 +77,7 @@
                 <i class="flaticon-barbell display-1 text-primary"></i>
                 <h3 class="text-uppercase my-4"> Aerobic Koreo</h3>
                 <p>Aerobik pemula adalah bentuk latihan aerobik yang dirancang khusus untuk pemula yang baru memulai atau memiliki tingkat kebugaran yang lebih rendah.</p>
-                <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                <!-- <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a> -->
             </div>
         </div>
         <div class="col-lg-4 col-md-6">
@@ -85,15 +85,15 @@
                 <i class="flaticon-barbell display-1 text-primary"></i>
                 <h3 class="text-uppercase my-4">Zumba</h3>
                 <p>Senam Zumba adalah sebuah jenis latihan fisik yang menggabungkan gerakan tari dengan musik berirama.</p>
-                <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                <!-- <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a> -->
             </div>
         </div>
         <div class="col-lg-4 col-md-6">
             <div class="bg-light rounded text-center p-5">
                 <i class="flaticon-bodybuilding display-1 text-primary"></i>
                 <h3 class="text-uppercase my-4">Yoga</h3>
-                <p>oga adalah bentuk senam atau latihan fisik yang menggabungkan gerakan tubuh, pose, pernapasan, meditasi, dan teknik relaksasi yang berasal dari tradisi yoga India kuno.</p>
-                <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a>
+                <p>Yoga adalah bentuk senam atau latihan fisik yang menggabungkan gerakan tubuh, pose, pernapasan, meditasi, dan teknik relaksasi yang berasal dari tradisi yoga India kuno.</p>
+                <!-- <a class="text-uppercase" href="">Read More <i class="bi bi-arrow-right"></i></a> -->
             </div>
         </div>
         <div class="col-lg-12 col-md-6 text-center">
@@ -137,7 +137,7 @@
         </ul>
         <div class="tab-content">
             <div id="tab-1" class="tab-pane fade show p-0 active">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['senin'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -152,7 +152,7 @@
                 </div>
             </div>
             <div id="tab-2" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['selasa'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div id="tab-3" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['rabu'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -182,7 +182,7 @@
                 </div>
             </div>
             <div id="tab-4" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['kamis'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -197,7 +197,7 @@
                 </div>
             </div>
             <div id="tab-5" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['jumat'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -212,7 +212,7 @@
                 </div>
             </div>
             <div id="tab-6" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['sabtu'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">
@@ -227,7 +227,7 @@
                 </div>
             </div>
             <div id="tab-7" class="tab-pane fade p-0">
-                <div class="row g-5">
+                <div class="row g-5" style="justify-content: center;">
                     @foreach($data['minggu'] as $key => $value)
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="bg-dark rounded text-center py-5 px-3">

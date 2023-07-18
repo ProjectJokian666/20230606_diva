@@ -3,19 +3,7 @@
 
 @section('content')
 <div class="content-wrapper">
-    @if(Session::has('alert'))
-    @if(Session::get('sweetalert')=='success')
-    <div class="swalDefaultSuccess">
-    </div>
-    @elseif(Session::get('sweetalert')=='error')
-    <div class="swalDefaultError">
-    </div>
-    @elseif(Session::get('sweetalert')=='warning')
-    <div class="swalDefaultWarning">
-    </div>
-    @endif
-    @endif
-    
+
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -112,4 +100,24 @@
         </div>
     </section>
 </div>
-@stop
+
+@endsection
+@section('footer')
+<script type="text/javascript">
+    @if(Session::has('alert'))
+    @if(Session::get('sweetalert')=='success')
+
+    Swal.fire('', '{{Session::get('alert')}}', 'success');
+
+    @elseif(Session::get('sweetalert')=='error')
+
+    Swal.fire('', '{{Session::get('alert')}}', 'error');
+
+    @elseif(Session::get('sweetalert')=='warning')
+
+    Swal.fire('', '{{Session::get('alert')}}', 'warning');
+
+    @endif
+    @endif
+</script>
+@endsection

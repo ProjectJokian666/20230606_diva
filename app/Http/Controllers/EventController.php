@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\KelasSenam;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -57,6 +58,12 @@ class EventController extends Controller
             return redirect()->back()->with('alert', 'Gagal Mnambahkan Data Event!')->withErrors($validate);
         }
 
+        $cek_data = Events::where('tanggal',$request->tanggal)->first();
+        if ($cek_data) {
+            Session::put('sweetalert', 'warning');
+            return redirect()->back()->with('alert', 'Gagal Menambahkan Data Event!, karena tanggal tersebut sudah terisi event '.$cek_data->nama_event);
+        }
+
         Events::insert([
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
@@ -99,6 +106,40 @@ class EventController extends Controller
         if($validate->fails()){
             Session::put('sweetalert', 'warning');
             return redirect()->back()->with('alert', 'Gagal Mengubah Data Event!')->withErrors($validate);
+        }
+
+        $cek_first= Events::find($id);
+        $cek_data_update=Events::
+        where('tanggal','=',$request->tanggal)->
+        where('jam','=',$request->jam)->
+        where('nama_event','=',$request->nama_event)->
+        where('detail_event','=',$request->detail_event)->
+        where('diskon_event','=',$request->diskon_event)->
+        where('harga_event','=',$request->harga_event)->
+        first();
+        if ($cek_data_update) {
+            if(
+                $cek_first->tanggal==$cek_data_update->tanggal
+                &&
+                $cek_first->jam==$cek_data_update->jam
+                &&
+                $cek_first->nama_event==$cek_data_update->nama_event
+                &&
+                $cek_first->detail_event==$cek_data_update->detail_event
+                &&
+                $cek_first->diskon_event==$cek_data_update->diskon_event
+                &&
+                $cek_first->harga_event==$cek_data_update->harga_event
+            ){   
+                Session::put('sweetalert', 'warning');
+                return redirect()->back()->with('alert', 'Data tidak berubah');
+            }
+        }
+
+        $cek_data = Events::where('tanggal',$request->tanggal)->first();
+        if ($cek_data->id!=$id) {
+            Session::put('sweetalert', 'warning');
+            return redirect()->back()->with('alert', 'Gagal Menambahkan Data Event!, karena tanggal tersebut sudah terisi event '.$cek_data->nama_event);
         }
 
         Events::where('id', $id)->update([

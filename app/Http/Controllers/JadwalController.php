@@ -53,11 +53,10 @@ class JadwalController extends Controller
         }
 
         $cek_data = JadwalSesi::
-        where('user_id','=',$request->pelatih)->
         where('hari','=',$request->tanggal)->first();
         if ($cek_data) {
             Session::put('sweetalert', 'warning');
-            return redirect()->back()->with('alert', 'Pelatih sudah ada jadwal dihari '.DATE('l, d M Y',strtotime($request->tanggal)).', '.DATE('H:i',strtotime($cek_data->jam)).' WIB')->withErrors($validate);
+            return redirect()->back()->with('alert', 'Pada '.DATE('l, d M Y',strtotime($request->tanggal)).' Jadwal sudah terisi '.$cek_data->senam->nama.' pada jam '.DATE('H:i',strtotime($cek_data->jam)).' oleh '.$cek_data->pelatih->nama)->withErrors($validate);
         }
         $cek_data = JadwalSesi::
         where('senam_id','=',$request->senam)->
@@ -147,11 +146,10 @@ class JadwalController extends Controller
 
         //cek ubah data pelatih saja
         $cek_data_hari = JadwalSesi::
-        where('user_id','=',$request->pelatih)->
         where('hari','=',$request->tanggal)->first();
         if ($cek_data_hari&&$cek_data_hari->user_id!=$data_awal->user_id) {
             Session::put('sweetalert', 'warning');
-            return redirect()->back()->with('alert', $cek_data_hari->pelatih->nama.' sudah ada jadwal '.$cek_data_hari->senam->nama.' pada hari tersebut dan dijam '.DATE('H:i',strtotime($cek_data_hari->jam)).' WIB')->withErrors($validate);
+            return redirect()->back()->with('alert', 'Pada '.DATE('l, d M Y',strtotime($request->tanggal)).' Jadwal sudah terisi '.$cek_data_hari->senam->nama.' pada jam '.DATE('H:i',strtotime($cek_data_hari->jam)).' oleh '.$cek_data_hari->pelatih->nama)->withErrors($validate);
         }
 
         // dd($data_awal,$data_exist);

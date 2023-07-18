@@ -16,65 +16,53 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $remember = $request->remember != null ? true : false;
-        if(Auth::attempt([
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 1
-        ], $remember) || Auth::attempt([
-            'username'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 1
-        ], $remember)){
+        if(
+            Auth::attempt(['email'=> $request->email,'password'  => $request->password,'role_id'=> 1], $remember)
+            ||
+            Auth::attempt(['username'=> $request->email,'password'  => $request->password,'role_id'=> 1], $remember)
+        ){
             Session::put('sweetalert', 'warning');
             return redirect()->route('dashboard')->with('alert', 'Selamat Datang!');
-        }elseif(Auth::attempt([
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 2
-        ], $remember) || Auth::attempt([
-            'username'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 2
-        ], $remember)){
+        }
+        elseif(    Auth::
+            attempt(
+            ['email'     => $request->email,'password'  => $request->password,'role_id'      => 2], $remember)
+            ||
+            Auth::attempt([    'username'     => $request->email,    'password'  => $request->password,    'role_id'      => 2], $remember)){
             Session::put('sweetalert', 'warning');
             return redirect()->route('dashboard')->with('alert', 'Selamat Datang!');
-        }elseif(Auth::attempt([
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 3
-        ], $remember) || Auth::attempt([
-            'username'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 3
-        ], $remember)){
+        }
+        elseif(
+            Auth::attempt(
+            ['email'     => $request->email,'password'  => $request->password,'role_id'      => 3], $remember)
+            ||
+            Auth::attempt(['username'     => $request->email,'password'  => $request->password,'role_id'      => 3], $remember)
+        ){
             Session::put('sweetalert', 'warning');
             return redirect()->route('dashboard')->with('alert', 'Selamat Datang!');
-        }elseif(Auth::attempt([
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 4
-        ], $remember) || Auth::attempt([
-            'username'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 4
-        ], $remember)){
+        }
+        elseif(
+            Auth::attempt(
+            ['email'     => $request->email,'password'  => $request->password,'role_id'      => 4], $remember)
+            ||
+            Auth::attempt(['username'     => $request->email,'password'  => $request->password,'role_id'      => 4], $remember)
+        ){
             Session::put('sweetalert', 'warning');
             return redirect()->route('dashboard')->with('alert', 'Selamat Datang!');
-        }elseif(Auth::attempt([
-            'email'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 5
-        ], $remember) || Auth::attempt([
-            'username'     => $request->email,
-            'password'  => $request->password,
-            'role_id'      => 5
-        ], $remember)){
+        }
+        elseif(
+            Auth::attempt(
+            ['email'     => $request->email,'password'  => $request->password,'role_id'      => 5], $remember)
+            ||
+            Auth::attempt(['username'     => $request->email,'password'  => $request->password,'role_id'      => 5], $remember)
+        ){
             Session::put('sweetalert', 'warning');
             return redirect()->route('dashboard')->with('alert', 'Selamat Datang!');
         }
         
-        Session::put('sweetalert', 'error');
+        // Session::put('sweetalert', 'error');
         return redirect('login')->with('alert','Email atau Password anda salah!');
+        // return redirect('login');
     }
 
     public function logout(){

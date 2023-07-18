@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalSesi;
 use App\Models\KelasSenam;
+use App\Models\Events;
 use App\Models\Pelatih;
 use Carbon\Carbon;
 use Illuminate\Http\Request;

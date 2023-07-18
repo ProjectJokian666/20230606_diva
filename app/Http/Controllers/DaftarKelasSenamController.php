@@ -57,6 +57,14 @@ class DaftarKelasSenamController extends Controller
         }
     }
 
+    public function bayar_jadwal_user($id)
+    {
+        $data = [
+            'jadwal' => JadwalSesi::where(DB::RAW("concat(hari,' ',jam)"),">=",DB::RAW("concat(curdate(),' ',curtime())"))->get(),
+        ];
+        return view('daftarkelas.bayar',compact('data'));
+    }
+
     public function delete_jadwal_user($jadwal,Request $request)
     {
         $cek_data = Ikutkelas::where('jadwal_id','=',$jadwal)->where('user_id','=',Auth()->user()->anggota->id)->first();

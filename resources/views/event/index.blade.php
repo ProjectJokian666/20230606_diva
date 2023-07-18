@@ -4,18 +4,6 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    @if(Session::has('alert'))
-    @if(Session::get('sweetalert')=='success')
-    <div class="swalDefaultSuccess">
-    </div>
-    @elseif(Session::get('sweetalert')=='error')
-    <div class="swalDefaultError">
-    </div>
-    @elseif(Session::get('sweetalert')=='warning')
-    <div class="swalDefaultWarning">
-    </div>
-    @endif
-    @endif
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -60,12 +48,12 @@
                                 <thead>
                                     <tr>
                                         <th width="5%" style="text-align: center;">No</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam</th>
+                                        <th>Waktu</th>
                                         <th>Nama Event</th>
                                         <th>Detail</th>
-                                        <th>Diskon</th>
                                         <th>Harga</th>
+                                        <th>Diskon</th>
+                                        <th>Harga Bayar</th>
                                         @if(Auth::user()->role_id == 2||Auth::user()->role_id == 4)
                                         <th width="10%">Aksi</th>
                                         @endif
@@ -75,12 +63,12 @@
                                     @foreach ($data['event'] as $data)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $data->tanggal }}</td>
-                                        <td>{{ DATE('H:i',strtotime($data->jam)) }} WIB</td>
+                                        <td>{{ DATE('d m Y',strtotime($data->tanggal)) }}, {{ DATE('H:i',strtotime($data->jam)) }} WIB</td>
                                         <td>{{ $data->nama_event }}</td>
                                         <td>{{ $data->detail_event }}</td>
-                                        <td>{{ $data->diskon_event.' %' }}</td>
-                                        <td>{{ 'Rp '.number_format($data->harga_event,0,',','.') }}</td>
+                                        <td>Rp. {{ number_format($data->harga_event,0,',','.') }}</td>
+                                        <td>{{ $data->diskon_event }} %</td>
+                                        <td>Rp. {{ number_format(round($data->harga_event*(100-$data->diskon_event)/100,2),0,',','.') }} %</td>
                                         @if(Auth::user()->role_id == 2)
                                         <td>
                                             <a href="{{ route('a.event.edit', $data->id) }}"> <button class="btn btn-warning btn-sm"><i class="fa fa-pen"></i></button></a>
@@ -126,6 +114,18 @@
 @endsection
 
 @section('footer')
+<script type="text/javascript">
+    @if(Session::has('alert'))
+    @if(Session::get('sweetalert')=='success')
+    Swal.fire('', '{{Session::get('alert')}}', 'warning');
+    new swal("SUKSES!", '{{Session::get('alert')}}', "success");
+    @elseif(Session::get('sweetalert')=='error')
+    new swal("BAHAYA!", '{{Session::get('alert')}}', "error");
+    @elseif(Session::get('sweetalert')=='warning')
+    new swal("PERINGATAN!", '{{Session::get('alert')}}', "warning");
+    @endif
+    @endif
+</script>
 @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
 <script>
     var dtTableOption = {
@@ -159,57 +159,56 @@
         ]
     };
 
-    $("#dataTable").DataTable(dtTableOption).buttons().container().appendTo(
-        '#tbl_kain_roll_wrapper .col-md-6:eq(0)')
-    </script>
-    <script type="text/javascript">
-        function deleteData(id){
-            new swal({
-                title: "Anda Yakin?",
-                text: "Untuk menghapus data ini?",
-                icon: 'warning',
-                showCancelButton:true,
-                confirmButtonText: "Oke",
-                cancelButtonText: "Tidak",
-            })
-            .then((willDelete) => {
-                if(willDelete.isConfirmed) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: "{{url('Admin/Event/delete')}}/"+id,
-                        method: 'DELETE',
-                        success: function (results) {
-                            new swal("Berhasil!", "Data Berhasil Dihapus!", "success");
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
-                        },
-                        error: function (results) {
-                            new swal("GAGAL!", "Gagal Menghapus Data!", "error");
-                        }
-                    });
+    $("#dataTable").DataTable(dtTableOption).buttons().container().appendTo('#tbl_kain_roll_wrapper .col-md-6:eq(0)')
+</script>
+<script type="text/javascript">
+    function deleteData(id){
+        new swal({
+            title: "Anda Yakin?",
+            text: "Untuk menghapus data ini?",
+            icon: 'warning',
+            showCancelButton:true,
+            confirmButtonText: "Oke",
+            cancelButtonText: "Tidak",
+        })
+        .then((willDelete) => {
+            if(willDelete.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{url('Admin/Event/delete')}}/"+id,
+                    method: 'DELETE',
+                    success: function (results) {
+                        new swal("Berhasil!", "Data Berhasil Dihapus!", "success");
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
+                    },
+                    error: function (results) {
+                        new swal("GAGAL!", "Gagal Menghapus Data!", "error");
+                    }
+                });
                 // console.log('hapus')
-                }
-            })
-        }
-    </script>
-    @else
-    <script>
-        var dtTableOption = {
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": true,
-            "responsive": true,
-        };
+            }
+        })
+    }
+</script>
+@else
+<script>
+    var dtTableOption = {
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+    };
 
-        $("#dataTable").DataTable(dtTableOption)
-    </script>
-    @endif
-    @endsection
+    $("#dataTable").DataTable(dtTableOption)
+</script>
+@endif
+@endsection

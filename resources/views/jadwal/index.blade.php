@@ -4,18 +4,6 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    @if(Session::has('alert'))
-    @if(Session::get('sweetalert')=='success')
-    <div class="swalDefaultSuccess">
-    </div>
-    @elseif(Session::get('sweetalert')=='error')
-    <div class="swalDefaultError">
-    </div>
-    @elseif(Session::get('sweetalert')=='warning')
-    <div class="swalDefaultWarning">
-    </div>
-    @endif
-    @endif
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -101,6 +89,17 @@
 @endsection
 
 @section('footer')
+<script type="text/javascript">
+    @if(Session::has('alert'))
+    @if(Session::get('sweetalert')=='success')
+    Swal.fire('', '{{Session::get('alert')}}', 'success');
+    @elseif(Session::get('sweetalert')=='error')
+    Swal.fire('', '{{Session::get('alert')}}', 'error');
+    @elseif(Session::get('sweetalert')=='warning')
+    Swal.fire('', '{{Session::get('alert')}}', 'warning');
+    @endif
+    @endif
+</script>
 @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
 <script>
     var dtTableOption = {
@@ -159,14 +158,13 @@
                         method: 'DELETE',
                         success: function (results) {
                             console.log(results);
-                            new swal("Berhasil!", "Data Berhasil Dihapus!", "success");
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 1500);
+                            // new swal("Berhasil!", "Data Berhasil Dihapus!", "success");
+                            Swal.fire('', 'Sukses Menghapus Data!', 'success');
+                            window.location.reload();
                         },
                         error: function (results) {
                             console.log(results);
-                            new swal("GAGAL!", "Gagal Menghapus Data!", "error");
+                            Swal.fire('', 'Gagal Menghapus Data!', 'error');
                         }
                     });
                 }

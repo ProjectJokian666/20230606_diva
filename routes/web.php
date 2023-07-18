@@ -194,6 +194,7 @@ Route::group(['roles' => 'Member', 'prefix' => 'Member'], function(){
         Route::get('', [DaftarKelasSenamController::class, 'index'])->name('m.daftarKelas');
         Route::get('{jadwal}/tambah', [DaftarKelasSenamController::class, 'get_tambah_jadwal_user'])->name('m.get_jadwal_id_user');
         Route::post('{jadwal}/tambah', [DaftarKelasSenamController::class, 'tambah_jadwal_user'])->name('m.add_jadwal_id_user');
+        Route::post('{jadwal}/bayar', [DaftarKelasSenamController::class, 'bayar_jadwal_user'])->name('m.cash_jadwal_id_user');
         Route::delete('{jadwal}/batal', [DaftarKelasSenamController::class, 'delete_jadwal_user'])->name('m.delete_jadwal_id_user');
         Route::patch('{jadwal}/tambah', [DaftarKelasSenamController::class, 'store_jadwal_user'])->name('m.store_jadwal_id_user');
         Route::get('tambah-data', [DaftarKelasSenamController::class, 'insert'])->name('m.daftarKelas.add');
