@@ -16,6 +16,8 @@
 			<div class="mb-4">
 				<h5 class="text-primary text-uppercase">Daftar Kelas</h5>
 				<h1 class="display-3 text-uppercase mb-0">KELAS {{$data['kelas']->senam->nama}}</h1>
+				<h3 class="text-primary">HARGA Rp. {{number_format($data['kelas']->senam->harga,0,',','.')}}</h3>
+				<h5>Diskon {{$data['kelas']->senam->diskon}} % ( <i class="text-primary">Rp. {{number_format(round((100-$data['kelas']->senam->diskon)*$data['kelas']->senam->harga/100,2),0,',','.')}}</i> KHUSUS ANGGOTA )</h5>
 			</div>
 			<div class="rounded bg-dark p-5">
 				<ul class="nav nav-pills justify-content-between mb-3">

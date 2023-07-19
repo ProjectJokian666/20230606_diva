@@ -151,6 +151,22 @@ class HomeController extends Controller
                 ];
                 return response()->json($data);
         }
+        public function cek_member()
+        {
+                $status = "tidak";
+
+                $cek_data =Anggota::where('no_telp','=',request()->nomor)->first();
+
+                if ($cek_data) {
+                        $status='ada';
+                }
+
+                $data = [
+                        'data'=>$cek_data,
+                        'status'=>$status,
+                ];
+                return response()->json($data);
+        }
         public function event_daftar($id,Request $request)
         {
 

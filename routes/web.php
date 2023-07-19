@@ -41,6 +41,7 @@ Route::group(['prefix' => 'event'], function(){
 });
 
 Route::get('cek_nomor',[HomeController::class,'cek_nomor'])->name('cek_nomor');
+Route::get('cek_member',[HomeController::class,'cek_member'])->name('cek_member');
 
 Route::group(['prefix' => 'kelas'], function(){
     Route::get('{id}',[HomeController::class,'kelas'])->name('kelas');
